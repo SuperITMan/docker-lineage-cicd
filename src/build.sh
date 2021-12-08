@@ -175,6 +175,9 @@ for branch in ${BRANCH_NAME//,/ }; do
     los_ver_minor=$(sed -n -e 's/^\s*PRODUCT_VERSION_MINOR = //p' "vendor/$vendor/config/common.mk")
     los_ver="$los_ver_major.$los_ver_minor"
 
+    echo ">> [$(date)] Applying the network permission patch (00001-global-internet-permission-toggle.patch) to src"
+    patch --quiet --force -p1 -i "/root/community_patches/00001-global-internet-permission-toggle.patch"
+
     # If needed, apply the microG's signature spoofing patch
     if [ "$SIGNATURE_SPOOFING" = "yes" ] || [ "$SIGNATURE_SPOOFING" = "restricted" ]; then
       # Determine which patch should be applied to the current Android source tree
